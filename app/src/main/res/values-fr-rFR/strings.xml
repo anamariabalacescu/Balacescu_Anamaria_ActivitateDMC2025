@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ActivitéDMC</string>
+    <string name="buttonText">Presse</string>
+    <string name="edit_Text">Entrez Un Numéro Ici</string>
+    <string name="edit_Text_Second">Entrez Un Autre Numéro Ici</string>
+    <string name="defaultHello">Bonjour!</string>
+    <string name="changeDefault">Pourquoi as-tu fait ça ??</string>
+</resources>

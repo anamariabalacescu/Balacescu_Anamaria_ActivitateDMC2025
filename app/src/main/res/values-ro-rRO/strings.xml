@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ActivitateDMC</string>
+    <string name="buttonText">Apasă</string>
+    <string name="edit_Text">Introdu Un Număr Aici</string>
+    <string name="edit_Text_Second">Introdu Alt Număr Aici</string>
+    <string name="defaultHello">Salutare!</string>
+    <string name="changeDefault">De ce ai făcut asta??</string>
+</resources>
