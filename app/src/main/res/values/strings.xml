@@ -7,4 +7,17 @@
     <string name="changeDefault">Why did you do that??</string>
     <string name="buttonToThird">Go to third activity</string>
     <string name="buttonToSecond">Go to second activity</string>
+    <string name="bankName">Bank Name:</string>
+    <string name="bankSub">Number Subsidiaries:</string>
+    <string name="hasIntBank">Has Internet Baking</string>
+    <string name="doesNotHaveIntBank">Does Not Have Internet Baking</string>
+    <string name="lab4Button">Send</string>
+
+    <string name="introduceName">Introduce Bank Name</string>
+    <string name="introduceSub">Introduce Number of Subsidiaries</string>
+
+    <string name="creditI">Mortgage Loan</string>
+    <string name="creditA">Car Loan</string>
+    <string name="creditP">Personal Loan</string>
+
 </resources>

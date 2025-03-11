@@ -8,4 +8,12 @@
     <string name="changeDefault">Pourquoi as-tu fait ça ??</string>
     <string name="buttonToThird">Aller à la troisième activité</string>
     <string name="buttonToSecond">Aller à la deuxième activité</string>
+    <string name="bankName">Nom de la banque:</string>
+    <string name="bankSub">Nombre de filiales:</string>
+    <string name="hasIntBank">Dispose de services bancaires par Internet</string>
+    <string name="doesNotHaveIntBank">N`a pas de services bancaires par Internet</string>
+    <string name="lab4Button">Envoyer</string>
+
+    <string name="introduceName">Présenter le nom de la banque</string>
+    <string name="introduceSub">Présenter le nombre de filiales</string>
 </resources>
