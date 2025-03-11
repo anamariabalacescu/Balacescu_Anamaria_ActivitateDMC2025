@@ -6,4 +6,6 @@
     <string name="edit_Text_Second">Introdu Alt Număr Aici</string>
     <string name="defaultHello">Salutare!</string>
     <string name="changeDefault">De ce ai făcut asta??</string>
+    <string name="buttonToThird">Mergi la a treia activitate</string>
+    <string name="buttonToSecond">Mergi la a doua activitate</string>
 </resources>
