@@ -9,26 +9,29 @@
     tools:context=".Lab4Activity2">
 
     <!-- Label pentru Nume Bancă -->
+
+    <!-- EditText pentru Nume Bancă -->
     <TextView
         android:id="@+id/textView2"
         android:layout_width="110dp"
         android:layout_height="33dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="8dp"
         android:text="@string/bankName"
         app:layout_constraintEnd_toStartOf="@+id/etNumeBanca"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- EditText pentru Nume Bancă -->
     <EditText
         android:id="@+id/etNumeBanca"
         android:layout_width="206dp"
         android:layout_height="33dp"
         android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
+        android:hint="@string/introduceName"
         android:inputType="text"
-        android:text="@string/introduceName"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.304"
@@ -36,53 +39,68 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Label pentru Număr Filiale -->
+
+    <!-- EditText pentru Număr Filiale -->
+
+    <!-- Spinner pentru Tip Bancă -->
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="110dp"
         android:layout_height="33dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="24dp"
         android:text="@string/bankSub"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toStartOf="@+id/etFiliale"
-        app:layout_constraintHorizontal_bias="0.447"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <!-- EditText pentru Număr Filiale -->
     <EditText
         android:id="@+id/etFiliale"
         android:layout_width="206dp"
         android:layout_height="33dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="164dp"
         android:ems="10"
+        android:hint="@string/introduceSub"
         android:inputType="number"
-        android:text="@string/introduceSub"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/etNumeBanca"
         app:layout_constraintTop_toBottomOf="@+id/etNumeBanca" />
 
-    <!-- Spinner pentru Tip Bancă -->
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="352dp"
         android:layout_height="36dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayoutCredits"
+        app:layout_constraintStart_toStartOf="@+id/linearLayoutCredits"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCredits" />
 
     <!-- RadioGroup pentru Internet Banking -->
+
+    <!-- LinearLayout pentru CheckBox-uri (Tipuri de Credite) -->
+
+    <!-- Buton pentru trimitere -->
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="350dp"
         android:layout_height="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFiliale">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/etFiliale"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/etFiliale"
+        app:layout_constraintVertical_bias="0.0">
 
         <RadioButton
             android:id="@+id/radioButton"
@@ -97,15 +115,15 @@
             android:text="@string/doesNotHaveIntBank" />
     </RadioGroup>
 
-    <!-- LinearLayout pentru CheckBox-uri (Tipuri de Credite) -->
     <LinearLayout
         android:id="@+id/linearLayoutCredits"
         android:layout_width="323dp"
         android:layout_height="143dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="4dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
         <CheckBox
@@ -127,27 +145,37 @@
             android:text="@string/creditP" />
     </LinearLayout>
 
-    <!-- Buton pentru trimitere -->
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/lab4Button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
+        app:layout_constraintEnd_toEndOf="@+id/calendarView"
+        app:layout_constraintStart_toStartOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
     <RatingBar
         android:id="@+id/ratingBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:numStars="5"
         android:stepSize="1.0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/spinner"
+        app:layout_constraintStart_toStartOf="@+id/spinner"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="358dp"
+        android:layout_height="297dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/ratingBar2"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="@+id/ratingBar2"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

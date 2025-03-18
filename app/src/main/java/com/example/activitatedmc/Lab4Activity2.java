@@ -5,14 +5,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;   // <-- Import pentru RatingBar
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Lab4Activity2 extends AppCompatActivity {
@@ -23,6 +28,8 @@ public class Lab4Activity2 extends AppCompatActivity {
     private CheckBox cbCreditIpotecar, cbCreditAuto, cbCreditPersonal;
     private Button buttonSubmit;
     private RatingBar ratingBar;  // <-- Adăugat
+
+    private CalendarView datePickerCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,11 @@ public class Lab4Activity2 extends AppCompatActivity {
         cbCreditAuto = findViewById(R.id.checkBox2);
         cbCreditPersonal = findViewById(R.id.checkBox3);
         buttonSubmit = findViewById(R.id.button2);
+        datePickerCalendar = findViewById(R.id.calendarView);
+        //datePickerCalendar.setMaxDate(System.currentTimeMillis());
+        Calendar cal = Calendar.getInstance();
+        cal.set(2024, Calendar.DECEMBER, 10);
+        datePickerCalendar.setMaxDate(cal.getTimeInMillis());
 
         // Adăugăm referința la RatingBar
         ratingBar = findViewById(R.id.ratingBar2);
@@ -81,24 +93,30 @@ public class Lab4Activity2 extends AppCompatActivity {
                 boolean internetBanking = false;
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 if (selectedId != -1) {
-                    RadioButton rbSelected = findViewById(selectedId);
-                    if (rbSelected.getText().toString().equalsIgnoreCase("Da")) {
+                    if (selectedId == R.id.radioButton) {  // corresponds to "hasIntBank"
                         internetBanking = true;
+                    } else if (selectedId == R.id.radioButton2) {  // corresponds to "doesNotHaveIntBank"
+                        internetBanking = false;
                     }
                 }
 
                 // Se obține rating-ul din RatingBar
                 double rating = ratingBar.getRating();  // getRating() returnează un float, se convertește implicit la double
 
+                //Se obtine data din Calendar View în milisecunde
+                long selectedMillis = datePickerCalendar.getDate();
+                // Transformăm milisecundele într-un obiect Date
+                Date selectedDate = new Date(selectedMillis);
+
                 // Creare obiect Banca cu rating-ul obținut
                 Banca banca = new Banca(
                         numeBanca,
-                        false,           // estePrivata - exemplu, rămâne fals dacă nu ai alt CheckBox dedicat
                         numarFiliale,
                         tipBanca,
                         rating,          // folosim rating-ul din RatingBar
                         tipuriCredite,
-                        internetBanking
+                        internetBanking,
+                        selectedDate
                 );
 
                 // Pregătim Intent-ul pentru a returna rezultatul
