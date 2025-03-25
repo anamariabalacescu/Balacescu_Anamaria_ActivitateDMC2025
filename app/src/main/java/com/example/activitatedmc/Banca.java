@@ -18,6 +18,10 @@ public class Banca implements Parcelable {
     private boolean internetBanking;
     private Date dataInfiintare;
 
+    public Banca() {
+        this.tipuriCredite = new ArrayList<>();
+    }
+
     public enum TipBanca {
         COMERCIAL, INVESTITIONALA, ECONOMICA
     }
@@ -96,4 +100,60 @@ public class Banca implements Parcelable {
             return new Banca[size];
         }
     };
+
+    public String getNumeBanca() {
+        return numeBanca;
+    }
+
+    public void setNumeBanca(String numeBanca) {
+        this.numeBanca = numeBanca;
+    }
+
+    public int getNumarFiliale() {
+        return numarFiliale;
+    }
+
+    public void setNumarFiliale(int numarFiliale) {
+        this.numarFiliale = numarFiliale;
+    }
+
+    public TipBanca getTipBanca() {
+        return tipBanca;
+    }
+
+    public void setTipBanca(TipBanca tipBanca) {
+        this.tipBanca = tipBanca;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public List<TipCredit> getTipuriCredite() {
+        return tipuriCredite;
+    }
+
+    public void setTipuriCredite(List<TipCredit> tipuriCredite) {
+        this.tipuriCredite = tipuriCredite;
+    }
+
+    public boolean hasInternetBanking() {
+        return internetBanking;
+    }
+
+    public void setInternetBanking(boolean internetBanking) {
+        this.internetBanking = internetBanking;
+    }
+
+    public Date getDataInfiintare() {
+        return dataInfiintare;
+    }
+
+    public void setDataInfiintare(Date dataInfiintare) {
+        this.dataInfiintare = dataInfiintare;
+    }
 }

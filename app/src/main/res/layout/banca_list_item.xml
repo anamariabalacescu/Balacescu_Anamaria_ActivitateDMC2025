@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Nume Bancă -->
+    <TextView
+        android:id="@+id/labelNumeBanca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nume Bancă:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNumeBanca"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Banca X"
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/labelNumeBanca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelNumeBanca" />
+
+    <!-- Număr Filiale -->
+    <TextView
+        android:id="@+id/labelFiliale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Număr Filiale:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/labelNumeBanca"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tvFiliale"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvNumeBanca"
+        app:layout_constraintStart_toEndOf="@id/labelFiliale"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelFiliale" />
+
+    <!-- Tip Bancă -->
+    <TextView
+        android:id="@+id/labelTipBanca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tip Bancă:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/labelFiliale"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tvTipBanca"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="COMERCIAL"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvFiliale"
+        app:layout_constraintStart_toEndOf="@id/labelTipBanca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelTipBanca" />
+
+    <!-- Internet Banking -->
+    <TextView
+        android:id="@+id/labelInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Internet Banking:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/labelTipBanca"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rgInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvTipBanca"
+        app:layout_constraintStart_toEndOf="@id/labelInternet"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
+        <RadioButton
+            android:id="@+id/rbHasInternet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Da"
+            android:enabled="false"/>
+        <RadioButton
+            android:id="@+id/rbNoInternet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nu"
+            android:enabled="false"/>
+    </RadioGroup>
+
+    <!-- Credite -->
+    <TextView
+        android:id="@+id/labelCredite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credite:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/rgInternet"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:id="@+id/llCredite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/rgInternet"
+        app:layout_constraintStart_toEndOf="@id/labelCredite"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp">
+        <CheckBox
+            android:id="@+id/cbCreditI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ipotecar"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/cbCreditA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Auto"
+            android:enabled="false"/>
+        <CheckBox
+            android:id="@+id/cbCreditP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal"
+            android:enabled="false"/>
+    </LinearLayout>
+
+    <!-- Rating -->
+    <TextView
+        android:id="@+id/labelRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/llCredite"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <RatingBar
+        android:id="@+id/rbRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:isIndicator="true"
+        app:layout_constraintTop_toBottomOf="@id/llCredite"
+        app:layout_constraintStart_toEndOf="@id/labelRating"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Data înființare -->
+    <TextView
+        android:id="@+id/labelData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data înființare:"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/rbRating"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/tvData"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Data"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/rbRating"
+        app:layout_constraintStart_toEndOf="@id/labelData"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
