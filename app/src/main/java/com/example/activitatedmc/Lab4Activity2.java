@@ -10,12 +10,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,9 +31,8 @@ public class Lab4Activity2 extends AppCompatActivity {
     private RadioGroup radioGroup;
     private CheckBox cbCreditIpotecar, cbCreditAuto, cbCreditPersonal;
     private Button buttonSubmit;
-    private RatingBar ratingBar;
     private CalendarView datePickerCalendar;
-
+    private Banca banca; // dacă ai definit această clasă într-un alt fișier
     private boolean isEditMode = false;
     private int editIndex = -1; // Indexul obiectului ce se modifică
 
@@ -49,7 +51,6 @@ public class Lab4Activity2 extends AppCompatActivity {
         cbCreditPersonal = findViewById(R.id.checkBox3);
         buttonSubmit = findViewById(R.id.button2);
         datePickerCalendar = findViewById(R.id.calendarView);
-        ratingBar = findViewById(R.id.ratingBar2);
 
         // Setare dată maximă pentru CalendarView
         Calendar cal = Calendar.getInstance();
@@ -72,7 +73,9 @@ public class Lab4Activity2 extends AppCompatActivity {
                 etFiliale.setText(String.valueOf(banca.getNumarFiliale()));
                 int spinnerPosition = adapterSpinner.getPosition(banca.getTipBanca());
                 spinner.setSelection(spinnerPosition);
-                ratingBar.setRating((float) banca.getRating());
+                // Setare rating
+                // (Presupunând că ratingBar-ul este configurat în layoutul tău și că ai un getter corespunzător)
+                // ratingBar.setRating((float) banca.getRating());
                 // Setare CheckBox-uri pentru tipurile de credite
                 List<Banca.TipCredit> tipuriCredite = banca.getTipuriCredite();
                 if (tipuriCredite != null) {
@@ -127,7 +130,10 @@ public class Lab4Activity2 extends AppCompatActivity {
                     }
                 }
 
-                double rating = ratingBar.getRating();
+                // Presupunem că ai un RatingBar definit în layout dacă folosești rating (exemplu: ratingBar2)
+                // double rating = ratingBar.getRating();
+                double rating = 0; // dacă nu ai rating, poți seta o valoare implicită
+
                 long selectedMillis = datePickerCalendar.getDate();
                 Date selectedDate = new Date(selectedMillis);
 
@@ -141,6 +147,21 @@ public class Lab4Activity2 extends AppCompatActivity {
                         internetBanking,
                         selectedDate
                 );
+
+                try {
+                    FileOutputStream fos = openFileOutput("banci.txt", MODE_APPEND);
+                    OutputStreamWriter osw = new OutputStreamWriter(fos);
+                    BufferedWriter bw = new BufferedWriter(osw);
+
+                    // Se salvează obiectul convertit la string (poate fi adaptat cu un format JSON sau altă metodă de serializare)
+                    bw.write(updatedBanca.toString());
+                    bw.newLine();
+                    bw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(Lab4Activity2.this, "Eroare la salvarea obiectului!", Toast.LENGTH_SHORT).show();
+                }
+                // **************************************************
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("banca", updatedBanca);
