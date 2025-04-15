@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,85 +46,188 @@ public class MainActivityLab4 extends AppCompatActivity {
     private ListView lvBanci;
     private List<Banca> banciList;
     private Button btnAddBanca, btnSettings;
+    private Button btnInsert, btnSelectAll, btnSearchByName, btnSearchByFiliale, btnDeleteGreater, btnDeleteLesser, btnIncrement;
+    private EditText etNumeBanca, etNumarFiliale, etSearchName, etMinFiliale, etMaxFiliale, etDeleteThreshold, etIncrementLetter;
     private BancaAdapter adapter;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_lab4);
 
+        // Initialize Room database
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "banca_database")
+                .build();
+
+        // Initialize UI components
         btnAddBanca = findViewById(R.id.btnAddBanca);
         btnSettings = findViewById(R.id.btnSettings);
         lvBanci = findViewById(R.id.lvBanci);
+        btnInsert = findViewById(R.id.btnInsert);
+        btnSelectAll = findViewById(R.id.btnSelectAll);
+        btnSearchByName = findViewById(R.id.btnSearchByName);
+        btnSearchByFiliale = findViewById(R.id.btnSearchByFiliale);
+        btnDeleteGreater = findViewById(R.id.btnDeleteGreater);
+        btnDeleteLesser = findViewById(R.id.btnDeleteLesser);
+        btnIncrement = findViewById(R.id.btnIncrement);
+        etNumeBanca = findViewById(R.id.etNumeBanca);
+        etNumarFiliale = findViewById(R.id.etNumarFiliale);
+        etSearchName = findViewById(R.id.etSearchName);
+        etMinFiliale = findViewById(R.id.etMinFiliale);
+        etMaxFiliale = findViewById(R.id.etMaxFiliale);
+        etDeleteThreshold = findViewById(R.id.etDeleteThreshold);
+        etIncrementLetter = findViewById(R.id.etIncrementLetter);
 
-        // Încarcă lista de bănci din SharedPreferences sau creează una nouă
+        // Load original banciList
         banciList = loadBanksFromPreferences();
         if (banciList == null) {
             banciList = new ArrayList<>();
         }
-
-        // Inițializează adapterul și îl setează în ListView
         adapter = new BancaAdapter(this, banciList);
         lvBanci.setAdapter(adapter);
 
-        // Afișează în Log calea completă a directorului de fișiere
-        Log.d("FILE_PATH", "Calea completă a directorului fișiere: " + getFilesDir().getAbsolutePath());
-        // Exemplu: /data/data/com.example.activitatedmc/files/
-
-        // Butonul de adăugare – deschide activitatea pentru adăugare
-        btnAddBanca.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivityLab4.this, Lab4Activity2.class);
-                startActivityForResult(intent, REQUEST_CODE_ADD);
-            }
+        // Original button listeners
+        btnAddBanca.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityLab4.this, Lab4Activity2.class);
+            startActivityForResult(intent, REQUEST_CODE_ADD);
         });
 
-        // Butonul de setări – deschide activitatea SettingsActivity
-        btnSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivityLab4.this, SettingsActivity.class);
-                startActivity(intent);
-            }
+        btnSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivityLab4.this, SettingsActivity.class);
+            startActivity(intent);
         });
 
-        // Click scurt – deschide activitatea pentru editare (trimite banca și indexul)
-        lvBanci.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Banca selectedBanca = banciList.get(position);
-                Intent intent = new Intent(MainActivityLab4.this, Lab4Activity2.class);
-                intent.putExtra("banca", selectedBanca);
-                intent.putExtra("index", position);
-                startActivityForResult(intent, REQUEST_CODE_EDIT);
-            }
+        // Original click listeners
+        lvBanci.setOnItemClickListener((parent, view, position, id) -> {
+            Banca selectedBanca = banciList.get(position);
+            Intent intent = new Intent(MainActivityLab4.this, Lab4Activity2.class);
+            intent.putExtra("banca", selectedBanca);
+            intent.putExtra("index", position);
+            startActivityForResult(intent, REQUEST_CODE_EDIT);
         });
 
-        // Click lung – adaugă banca selectată în fișierul de favorite, evitând duplicatele
-        lvBanci.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Banca selectedBanca = banciList.get(position);
-                if (isFavoriteDuplicate(selectedBanca)) {
-                    Toast.makeText(MainActivityLab4.this, "Banca există deja în favorite!", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                try {
-                    FileOutputStream fos = openFileOutput("favoriteBanci.txt", MODE_APPEND);
-                    OutputStreamWriter osw = new OutputStreamWriter(fos);
-                    BufferedWriter bw = new BufferedWriter(osw);
-                    bw.write(selectedBanca.toString());
-                    bw.newLine();
-                    bw.close();
-                    Toast.makeText(MainActivityLab4.this, "Banca adăugată la favorite", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(MainActivityLab4.this, "Eroare la salvarea în favorite!", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
+        lvBanci.setOnItemLongClickListener((parent, view, position, id) -> {
+            Banca selectedBanca = banciList.get(position);
+            if (isFavoriteDuplicate(selectedBanca)) {
+                Toast.makeText(MainActivityLab4.this, "Banca există deja în favorite!", Toast.LENGTH_SHORT).show();
                 return true;
             }
+            try {
+                FileOutputStream fos = openFileOutput("favoriteBanci.txt", MODE_APPEND);
+                OutputStreamWriter osw = new OutputStreamWriter(fos);
+                BufferedWriter bw = new BufferedWriter(osw);
+                bw.write(selectedBanca.toString());
+                bw.newLine();
+                bw.close();
+                Toast.makeText(MainActivityLab4.this, "Banca adăugată la favorite", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivityLab4.this, "Eroare la salvarea în favorite!", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        });
+
+        // Room database operations
+        btnInsert.setOnClickListener(v -> {
+            String numeBanca = etNumeBanca.getText().toString().trim();
+            String filialeStr = etNumarFiliale.getText().toString().trim();
+            if (numeBanca.isEmpty() || filialeStr.isEmpty()) {
+                Toast.makeText(this, "Completează toate câmpurile!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            int numarFiliale;
+            try {
+                numarFiliale = Integer.parseInt(filialeStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Număr filiale invalid!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Banca banca = new Banca(
+                    numeBanca,
+                    numarFiliale,
+                    Banca.TipBanca.COMERCIAL,
+                    0.0,
+                    new ArrayList<>(),
+                    false,
+                    new java.util.Date()
+            );
+
+            // Add to banciList and save
+            if (!bankExists(banca)) {
+                banciList.add(banca);
+                adapter.notifyDataSetChanged();
+                saveBanksToFile();
+                saveBanksToPreferences();
+            }
+
+            // Insert into Room
+            new InsertBancaTask().execute(banca);
+        });
+
+        btnSelectAll.setOnClickListener(v -> new GetAllBanciTask().execute());
+
+        btnSearchByName.setOnClickListener(v -> {
+            String name = etSearchName.getText().toString().trim();
+            if (name.isEmpty()) {
+                Toast.makeText(this, "Introdu un nume!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            new GetBancaByNameTask().execute(name);
+        });
+
+        btnSearchByFiliale.setOnClickListener(v -> {
+            String minStr = etMinFiliale.getText().toString().trim();
+            String maxStr = etMaxFiliale.getText().toString().trim();
+            if (minStr.isEmpty() || maxStr.isEmpty()) {
+                Toast.makeText(this, "Introdu ambele valori!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                int min = Integer.parseInt(minStr);
+                int max = Integer.parseInt(maxStr);
+                new GetBanciByFilialeRangeTask().execute(min, max);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Valori numerice invalide!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnDeleteGreater.setOnClickListener(v -> {
+            String thresholdStr = etDeleteThreshold.getText().toString().trim();
+            if (thresholdStr.isEmpty()) {
+                Toast.makeText(this, "Introdu o valoare!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                int value = Integer.parseInt(thresholdStr);
+                new DeleteBanciGreaterTask().execute(value);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Valoare numerică invalidă!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnDeleteLesser.setOnClickListener(v -> {
+            String thresholdStr = etDeleteThreshold.getText().toString().trim();
+            if (thresholdStr.isEmpty()) {
+                Toast.makeText(this, "Introdu o valoare!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                int value = Integer.parseInt(thresholdStr);
+                new DeleteBanciLesserTask().execute(value);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Valoare numerică invalidă!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnIncrement.setOnClickListener(v -> {
+            String letter = etIncrementLetter.getText().toString().trim();
+            if (letter.isEmpty() || letter.length() != 1) {
+                Toast.makeText(this, "Introdu o singură literă!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            new IncrementFilialeTask().execute(letter);
         });
     }
 
@@ -130,11 +235,9 @@ public class MainActivityLab4 extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
-        // Aplică stilizarea pentru etichetele statice din layout (ex. TextView-uri care nu sunt butoane)
         applyTextSettingsToStaticLabels(findViewById(android.R.id.content));
     }
 
-    // Metodă recursivă ce aplică setările de text (dimensiune și culoare) la toate TextView-urile, exceptând butoanele
     private void applyTextSettingsToStaticLabels(View view) {
         SharedPreferences preferences = getSharedPreferences("UserSettings", MODE_PRIVATE);
         int savedTextSize = preferences.getInt("textSize", 14);
@@ -153,7 +256,6 @@ public class MainActivityLab4 extends AppCompatActivity {
         }
     }
 
-    // Preluarea rezultatului de la activitățile de adăugare sau editare
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -161,9 +263,10 @@ public class MainActivityLab4 extends AppCompatActivity {
             Banca banca = data.getParcelableExtra("banca");
             if (banca != null) {
                 if (requestCode == REQUEST_CODE_ADD) {
-                    // Adaugă banca doar dacă nu există deja în listă
                     if (!bankExists(banca)) {
                         banciList.add(banca);
+                        // Also insert into Room
+                        new InsertBancaTask().execute(banca);
                     } else {
                         Toast.makeText(this, "Banca există deja!", Toast.LENGTH_SHORT).show();
                     }
@@ -171,6 +274,8 @@ public class MainActivityLab4 extends AppCompatActivity {
                     int index = data.getIntExtra("index", -1);
                     if (index != -1) {
                         banciList.set(index, banca);
+                        // Update in Room
+                        new UpdateBancaTask().execute(banca);
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -180,7 +285,6 @@ public class MainActivityLab4 extends AppCompatActivity {
         }
     }
 
-    // Metodă pentru verificarea duplicatelor în lista principală (după nume)
     private boolean bankExists(Banca newBank) {
         for (Banca b : banciList) {
             if (b.getNumeBanca().equalsIgnoreCase(newBank.getNumeBanca())) {
@@ -190,7 +294,6 @@ public class MainActivityLab4 extends AppCompatActivity {
         return false;
     }
 
-    // Verificăm duplicate
     private boolean isFavoriteDuplicate(Banca banca) {
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(openFileInput("favoriteBanci.txt")))) {
@@ -201,12 +304,11 @@ public class MainActivityLab4 extends AppCompatActivity {
                 }
             }
         } catch (IOException e) {
-            // Dacă fișierul nu există încă, nu e duplicat.
+            // File doesn't exist yet
         }
         return false;
     }
 
-    // Salvează întreaga listă de bănci în fișierul "banci.txt" (fără duplicate) – folosește MODE_PRIVATE pentru a suprascrie fișierul
     private void saveBanksToFile() {
         try {
             FileOutputStream fos = openFileOutput("banci.txt", MODE_PRIVATE);
@@ -222,7 +324,6 @@ public class MainActivityLab4 extends AppCompatActivity {
         }
     }
 
-    // Salvează lista de bănci în SharedPreferences sub formă de JSON, folosind clasele org.json (fără Gson)
     private void saveBanksToPreferences() {
         SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -252,7 +353,6 @@ public class MainActivityLab4 extends AppCompatActivity {
         }
     }
 
-    // Încarcă lista de bănci din SharedPreferences, parsând șirul JSON cu org.json
     private List<Banca> loadBanksFromPreferences() {
         SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         String json = sp.getString(BANKS_KEY, null);
@@ -285,7 +385,127 @@ public class MainActivityLab4 extends AppCompatActivity {
         return list;
     }
 
-    // Adapterul personalizat pentru ListView – aplică setările de text (dimensiune și culoare) pe elementele fiecărei bănci
+    // AsyncTasks for Room operations
+    private class InsertBancaTask extends AsyncTask<Banca, Void, Long> {
+        @Override
+        protected Long doInBackground(Banca... bancas) {
+            return db.bancaDao().insert(bancas[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Long result) {
+            Toast.makeText(MainActivityLab4.this, "Banca inserată în DB cu ID: " + result, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class UpdateBancaTask extends AsyncTask<Banca, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Banca... bancas) {
+            return db.bancaDao().update(bancas[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            Toast.makeText(MainActivityLab4.this, "Actualizate " + result + " bănci în DB", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class GetAllBanciTask extends AsyncTask<Void, Void, List<Banca>> {
+        @Override
+        protected List<Banca> doInBackground(Void... voids) {
+            return db.bancaDao().getAllBanci();
+        }
+
+        @Override
+        protected void onPostExecute(List<Banca> bancas) {
+            // Temporarily update ListView without modifying banciList
+            List<Banca> tempList = new ArrayList<>(banciList);
+            tempList.clear();
+            tempList.addAll(bancas);
+            adapter.clear();
+            adapter.addAll(tempList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private class GetBancaByNameTask extends AsyncTask<String, Void, Banca> {
+        @Override
+        protected Banca doInBackground(String... names) {
+            return db.bancaDao().getBancaByName(names[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Banca banca) {
+            List<Banca> tempList = new ArrayList<>(banciList);
+            tempList.clear();
+            if (banca != null) {
+                tempList.add(banca);
+            } else {
+                Toast.makeText(MainActivityLab4.this, "Nicio bancă găsită în DB!", Toast.LENGTH_SHORT).show();
+            }
+            adapter.clear();
+            adapter.addAll(tempList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private class GetBanciByFilialeRangeTask extends AsyncTask<Integer, Void, List<Banca>> {
+        @Override
+        protected List<Banca> doInBackground(Integer... params) {
+            return db.bancaDao().getBanciBetweenFiliale(params[0], params[1]);
+        }
+
+        @Override
+        protected void onPostExecute(List<Banca> bancas) {
+            List<Banca> tempList = new ArrayList<>(banciList);
+            tempList.clear();
+            tempList.addAll(bancas);
+            adapter.clear();
+            adapter.addAll(tempList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private class DeleteBanciGreaterTask extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... values) {
+            return db.bancaDao().deleteBanciWithFilialeGreaterThan(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer deletedRows) {
+            Toast.makeText(MainActivityLab4.this, "Șterse " + deletedRows + " bănci din DB", Toast.LENGTH_SHORT).show();
+            new GetAllBanciTask().execute();
+        }
+    }
+
+    private class DeleteBanciLesserTask extends AsyncTask<Integer, Void, Integer> {
+        @Override
+        protected Integer doInBackground(Integer... values) {
+            return db.bancaDao().deleteBanciWithFilialeLessThan(values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer deletedRows) {
+            Toast.makeText(MainActivityLab4.this, "Șterse " + deletedRows + " bănci din DB", Toast.LENGTH_SHORT).show();
+            new GetAllBanciTask().execute();
+        }
+    }
+
+    private class IncrementFilialeTask extends AsyncTask<String, Void, Integer> {
+        @Override
+        protected Integer doInBackground(String... letters) {
+            return db.bancaDao().incrementFilialeForBanciStartingWith(letters[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Integer updatedRows) {
+            Toast.makeText(MainActivityLab4.this, "Actualizate " + updatedRows + " bănci în DB", Toast.LENGTH_SHORT).show();
+            new GetAllBanciTask().execute();
+        }
+    }
+
+    // Original BancaAdapter
     private class BancaAdapter extends ArrayAdapter<Banca> {
         public BancaAdapter(Context context, List<Banca> banci) {
             super(context, 0, banci);
@@ -297,7 +517,6 @@ public class MainActivityLab4 extends AppCompatActivity {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.banca_list_item, parent, false);
             }
             Banca banca = getItem(position);
-            // Obține referințele la elementele din layout-ul fiecărui element de listă
             TextView tvNumeBanca = convertView.findViewById(R.id.tvNumeBanca);
             TextView tvFiliale = convertView.findViewById(R.id.tvFiliale);
             TextView tvTipBanca = convertView.findViewById(R.id.tvTipBanca);
@@ -309,7 +528,6 @@ public class MainActivityLab4 extends AppCompatActivity {
             CheckBox cbCreditP = convertView.findViewById(R.id.cbCreditP);
             RatingBar rbRating = convertView.findViewById(R.id.rbRating);
 
-            // Setează datele băncii
             tvNumeBanca.setText(banca.getNumeBanca());
             tvFiliale.setText(String.valueOf(banca.getNumarFiliale()));
             tvTipBanca.setText(banca.getTipBanca().toString());
@@ -336,7 +554,6 @@ public class MainActivityLab4 extends AppCompatActivity {
 
             rbRating.setRating((float) banca.getRating());
 
-            // Aplică setările din SharedPreferences pentru text
             SharedPreferences preferences = getContext().getSharedPreferences("UserSettings", MODE_PRIVATE);
             int savedTextSize = preferences.getInt("textSize", 14);
             String savedTextColor = preferences.getString("textColor", "#000000");

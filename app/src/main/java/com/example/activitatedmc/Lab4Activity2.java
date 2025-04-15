@@ -161,7 +161,6 @@ public class Lab4Activity2 extends AppCompatActivity {
                     e.printStackTrace();
                     Toast.makeText(Lab4Activity2.this, "Eroare la salvarea obiectului!", Toast.LENGTH_SHORT).show();
                 }
-                // **************************************************
 
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("banca", updatedBanca);
