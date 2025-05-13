@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "957765955251",
+    "project_id": "bancionline-4609e",
+    "storage_bucket": "bancionline-4609e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957765955251:android:3697c03d426612b1048ac6",
+        "android_client_info": {
+          "package_name": "com.example.activitatedmc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_i3bqcQLjPAEcO5crWYgDGXov8qH7n50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
