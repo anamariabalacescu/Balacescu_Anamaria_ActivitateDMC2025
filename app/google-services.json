@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "186362388059",
+    "firebase_url": "https://antivirus-b23f0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "antivirus-b23f0",
+    "storage_bucket": "antivirus-b23f0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186362388059:android:dfb77dd0ec5104709ea97e",
+        "android_client_info": {
+          "package_name": "com.example.tehnici_actuale_motoare_anti_malware"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186362388059-rbfifj2gmvdd2i5tgeqf2oi5thep090v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChnhc__hQGCeWOkZ7v3vrsaQRbUmmi2EA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186362388059-rbfifj2gmvdd2i5tgeqf2oi5thep090v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

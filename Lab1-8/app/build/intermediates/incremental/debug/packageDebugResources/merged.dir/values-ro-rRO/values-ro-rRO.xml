@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ActivitateDMC</string>
+    <string name="bankName">Numele Băncii:</string>
+    <string name="bankSub">Număr Filiale:</string>
+    <string name="buttonText">Apasă</string>
+    <string name="buttonToSecond">Mergi la a doua activitate</string>
+    <string name="buttonToThird">Mergi la a treia activitate</string>
+    <string name="changeDefault">De ce ai făcut asta??</string>
+    <string name="creditA">Credit Auto</string>
+    <string name="creditI">Credit Ipotecar</string>
+    <string name="creditP">Credit Personal</string>
+    <string name="defaultHello">Salutare!</string>
+    <string name="doesNotHaveIntBank">Nu are Internet Baking</string>
+    <string name="edit_Text">Introdu Un Număr Aici</string>
+    <string name="edit_Text_Second">Introdu Alt Număr Aici</string>
+    <string name="hasIntBank">Are Internet Baking</string>
+    <string name="introduceName">Introduceti Numele Băncii</string>
+    <string name="introduceSub">Introduceti Numărul de Filiale</string>
+    <string name="lab4Button">Trimite</string>
+</resources>

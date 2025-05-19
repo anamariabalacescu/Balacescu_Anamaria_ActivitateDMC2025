@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ActivitéDMC</string>
+    <string name="bankName">Nom de la banque:</string>
+    <string name="bankSub">Nombre de filiales:</string>
+    <string name="buttonText">Presse</string>
+    <string name="buttonToSecond">Aller à la deuxième activité</string>
+    <string name="buttonToThird">Aller à la troisième activité</string>
+    <string name="changeDefault">Pourquoi as-tu fait ça ??</string>
+    <string name="defaultHello">Bonjour!</string>
+    <string name="doesNotHaveIntBank">N`a pas de services bancaires par Internet</string>
+    <string name="edit_Text">Entrez Un Numéro Ici</string>
+    <string name="edit_Text_Second">Entrez Un Autre Numéro Ici</string>
+    <string name="hasIntBank">Dispose de services bancaires par Internet</string>
+    <string name="introduceName">Présenter le nom de la banque</string>
+    <string name="introduceSub">Présenter le nombre de filiales</string>
+    <string name="lab4Button">Envoyer</string>
+</resources>

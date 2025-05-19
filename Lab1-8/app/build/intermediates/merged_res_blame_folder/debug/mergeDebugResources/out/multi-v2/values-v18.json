@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.activitatedmc.app-mergeDebugResources-32:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\anama\\.gradle\\caches\\8.10.2\\transforms\\1f3c320e9d41feca43578fd04b12d0c3\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btn_show_list
+id listView
+id list_view
+id webView
+layout activity_detail
+layout activity_list
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.Lab9
+style Theme.Lab9
+xml backup_rules
+xml data_extraction_rules

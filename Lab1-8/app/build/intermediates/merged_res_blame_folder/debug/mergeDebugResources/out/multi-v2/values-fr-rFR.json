@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.activitatedmc.app-mergeDebugResources-32:/values-fr-rFR/values-fr-rFR.xml",
+            "map": [
+                {
+                    "source": "D:\\ATM 4\\Sem2\\Disp_Mob\\Balacescu_Anamaria_ActivitateDMC2025\\app\\src\\main\\res\\values-fr-rFR\\strings.xml",
+                    "from": {
+                        "startLines": "2,10,11,3,9,8,7,6,13,4,5,12,16,17,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "57,553,609,107,480,407,338,287,749,154,214,666,890,963,840",
+                        "endColumns": "48,54,55,45,71,71,67,49,89,58,71,81,71,72,46",
+                        "endOffsets": "101,603,660,148,547,474,401,332,834,208,281,743,957,1031,882"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,104,159,215,261,333,405,473,523,613,672,744,826,898,971",
+                        "endColumns": "48,54,55,45,71,71,67,49,89,58,71,81,71,72,46",
+                        "endOffsets": "99,154,210,256,328,400,468,518,608,667,739,821,893,966,1013"
+                    }
+                }
+            ]
+        }
+    ]
+}

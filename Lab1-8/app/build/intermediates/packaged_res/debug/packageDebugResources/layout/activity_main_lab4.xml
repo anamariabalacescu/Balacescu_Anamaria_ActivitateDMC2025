@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Original buttons -->
+        <Button
+            android:id="@+id/btnAddBanca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:text="Adaugă Bancă" />
+
+        <Button
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:text="Setări" />
+
+        <!-- Insert new Banca for Room -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Adaugă Bancă (DB)" />
+
+        <EditText
+            android:id="@+id/etNumeBanca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:hint="Nume Bancă" />
+
+        <EditText
+            android:id="@+id/etNumarFiliale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Număr Filiale"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btnInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inserare în DB" />
+
+        <!-- Select all -->
+        <Button
+            android:id="@+id/btnSelectAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Afișează Toate (DB)" />
+
+        <!-- Search by name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Caută după Nume (DB)" />
+
+        <EditText
+            android:id="@+id/etSearchName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:hint="Nume Bancă" />
+
+        <Button
+            android:id="@+id/btnSearchByName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:text="Caută" />
+
+        <!-- Search by filiale range -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            android:text="Caută după Interval Filiale (DB)" />
+
+        <EditText
+            android:id="@+id/etMinFiliale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Minim Filiale"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etMaxFiliale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Maxim Filiale"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btnSearchByFiliale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:text="Caută" />
+
+        <!-- Delete by threshold -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Șterge după Număr Filiale (DB)" />
+
+        <EditText
+            android:id="@+id/etDeleteThreshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:hint="Prag Filiale"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/btnDeleteGreater"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:text="Șterge Mai Mare de" />
+
+        <Button
+            android:id="@+id/btnDeleteLesser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:text="Șterge Mai Mic de" />
+
+        <!-- Increment by letter -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Incrementează Filiale" />
+
+        <EditText
+            android:id="@+id/etIncrementLetter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:hint="Literă Inițială"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnIncrement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:text="Incrementează" />
+
+        <!-- ListView -->
+        <ListView
+            android:id="@+id/lvBanci"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

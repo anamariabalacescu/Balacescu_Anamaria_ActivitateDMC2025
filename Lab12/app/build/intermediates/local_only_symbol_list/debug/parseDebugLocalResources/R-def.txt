@@ -1,0 +1,25 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btnCircle
+id btnMapClick
+id btnPolygon
+id main
+id map
+id mapShape
+layout activity_main
+layout activity_map_click
+layout activity_map_shape
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string title_activity_map_click
+string title_activity_map_shape
+string title_activity_maps_click
+style Base.Theme.Lab12
+style Theme.Lab12
+xml backup_rules
+xml data_extraction_rules

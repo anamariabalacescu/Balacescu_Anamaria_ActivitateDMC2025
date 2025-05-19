@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvNumeBanca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nume Bancă" />
+
+    <TextView
+        android:id="@+id/tvFiliale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Număr Filiale" />
+
+    <TextView
+        android:id="@+id/tvTipBanca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tip Bancă" />
+
+    <TextView
+        android:id="@+id/tvData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data Înființare" />
+
+    <RadioButton
+        android:id="@+id/rbHasInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Are Internet Banking"
+        android:enabled="false" />
+
+    <RadioButton
+        android:id="@+id/rbNoInternet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fără Internet Banking"
+        android:enabled="false" />
+
+    <CheckBox
+        android:id="@+id/cbCreditI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credit Ipotecar"
+        android:enabled="false" />
+
+    <CheckBox
+        android:id="@+id/cbCreditA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credit Auto"
+        android:enabled="false" />
+
+    <CheckBox
+        android:id="@+id/cbCreditP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credit Personal"
+        android:enabled="false" />
+
+    <RatingBar
+        android:id="@+id/rbRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize="0.1" />
+
+</LinearLayout>

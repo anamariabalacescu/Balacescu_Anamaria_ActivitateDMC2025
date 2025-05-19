@@ -17,7 +17,7 @@
         tools:targetApi="31" >
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="CHEIA_TA_MAPS"/>
+            android:value="AIzaSyD3GU9Edwn_tb0tjsN0kGct8MhlrwqC5jY"/>
         <activity
             android:name=".MainActivity"
             android:exported="true" >
@@ -27,6 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activities.LoginActivity" />
+        <activity android:name=".ui.activities.DashboardActivity" />
+        <activity android:name=".ui.activities.ScanActivity" />
+        <activity android:name=".ui.activities.ResultsActivity" />
+        <activity android:name=".ui.activities.SettingsActivity" />
+        <activity android:name=".ui.activities.MapActivity" />
+        <activity android:name=".ui.activities.ChartActivity" />
+        <activity android:name=".ui.activities.HistoryActivity" />
     </application>
 
 </manifest>
