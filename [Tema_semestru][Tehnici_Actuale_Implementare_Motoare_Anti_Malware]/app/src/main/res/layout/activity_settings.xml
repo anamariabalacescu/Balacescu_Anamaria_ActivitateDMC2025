@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Folder picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select scan folder"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnChooseFolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose Folder"/>
+
+        <TextView
+            android:id="@+id/tvFolderPath"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No folder selected"
+            android:ellipsize="end"
+            android:singleLine="true"/>
+
+        <!-- Calendar for one-time scan date -->
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Schedule one-time scan date"
+            android:textStyle="bold"/>
+
+        <CalendarView
+            android:id="@+id/calendarSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Switch for daily auto-scan -->
+        <Switch
+            android:id="@+id/switchAutoScan"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable daily auto-scan"/>
+
+        <!-- Save button -->
+        <Button
+            android:id="@+id/btnSaveSettings"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Settings"/>
+    </LinearLayout>
+</ScrollView>
